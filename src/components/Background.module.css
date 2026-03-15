@@ -1,0 +1,49 @@
+.wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--bg-primary);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(circle at center, black, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at center, black, transparent 80%);
+}
+
+.noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url('https://grain-y.com/assets/img/grain.png');
+  background-repeat: repeat;
+}
+
+.blob {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+}
+
+.techLogo {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  user-select: none;
+  pointer-events: none;
+  z-index: 1;
+}

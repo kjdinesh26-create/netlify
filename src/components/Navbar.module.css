@@ -1,0 +1,131 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--nav-height);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: all var(--transition-smooth);
+}
+
+.scrolled {
+  background: rgba(6, 8, 15, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-glass);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.logoAccent {
+  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+  font-weight: 400;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color var(--transition-fast);
+  position: relative;
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent-cyan);
+  transition: width var(--transition-smooth);
+  border-radius: 1px;
+}
+
+.link:hover {
+  color: var(--accent-cyan);
+}
+
+.link:hover::after {
+  width: 100%;
+}
+
+.burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  padding: 4px;
+}
+
+.bar {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: all var(--transition-fast);
+}
+
+.barOpen1 {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.barOpen2 {
+  opacity: 0;
+}
+
+.barOpen3 {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.mobileMenu {
+  background: rgba(6, 8, 15, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-glass);
+  padding: 16px 24px 24px;
+  overflow: hidden;
+}
+
+.mobileLink {
+  display: block;
+  padding: 12px 0;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-glass);
+  transition: color var(--transition-fast);
+}
+
+.mobileLink:hover {
+  color: var(--accent-cyan);
+}
+
+@media (max-width: 768px) {
+  .links {
+    display: none;
+  }
+
+  .burger {
+    display: flex;
+  }
+}
