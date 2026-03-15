@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, ReactNode } from 'react';
-import { motion, useInView, Variant } from 'framer-motion';
+import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 
 type AnimationType = 'fadeUp' | 'fadeLeft' | 'fadeRight' | 'scaleUp';
 
@@ -10,6 +10,7 @@ interface AnimatedSectionProps {
   className?: string;
   delay?: number;
   type?: AnimationType;
+  enableScrollBlur?: boolean;
 }
 
 export default function AnimatedSection({
@@ -17,9 +18,19 @@ export default function AnimatedSection({
   className = '',
   delay = 0,
   type = 'fadeUp',
+  enableScrollBlur = true,
 }: AnimatedSectionProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  // Blur increases as section leaves the viewport at the top
+  const blurValue = useTransform(scrollYProgress, [0.7, 0.95], [0, 10]);
+  const opacityValue = useTransform(scrollYProgress, [0.7, 0.98], [1, 0.1]);
 
   const getVariants = () => {
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
@@ -65,7 +76,11 @@ export default function AnimatedSection({
         delay,
         ease: [0.16, 1, 0.3, 1], // easeOutExpo
       }}
-      style={{ willChange: 'opacity, transform' }}
+      style={{ 
+        willChange: 'opacity, transform, filter',
+        filter: enableScrollBlur ? `blur(${blurValue}px)` : undefined,
+        opacity: enableScrollBlur ? opacityValue : undefined
+      }}
     >
       {children}
     </motion.div>

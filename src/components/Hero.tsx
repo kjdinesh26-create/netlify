@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import styles from './Hero.module.css';
+import FuzzyText from './FuzzyText';
 
 const roles = ['Full-Stack Developer', 'ML Enthusiast', 'Problem Solver'];
 
@@ -51,14 +52,23 @@ export default function Hero() {
               </p>
             </motion.div>
 
-            <motion.h1
-              className={styles.name}
+            <motion.div
+              className={styles.nameContainer}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              Dinesh<span className={styles.dot}>.</span>
-            </motion.h1>
+              <FuzzyText 
+                text="Dineshkumar K J"
+                fontSize="clamp(2.5rem, 7vw, 4.5rem)"
+                fontWeight={900}
+                color="#fdf9f3"
+                baseFrequency="0.01 0.02" // Sustler distortion
+                numOctaves={2}
+                scale={1.5}
+                hoverScale={4}
+              />
+            </motion.div>
 
             <motion.div
               className={styles.roleWrapper}
@@ -109,7 +119,7 @@ export default function Hero() {
           >
             <div className={styles.imageFrame}>
               <div className={styles.imageInnerFrame}>
-                <img src="/profile.jpg" alt="Dinesh Kumar" className={styles.profileImage} />
+                <img src="/profile.jpg" alt="Dineshkumar K J" className={styles.profileImage} />
               </div>
             </div>
           </motion.div>

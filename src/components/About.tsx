@@ -17,7 +17,7 @@ export default function About() {
         <div className={styles.grid}>
           <AnimatedSection delay={0.1} className={styles.textCol}>
             <p className={styles.bio}>
-              I&apos;m <strong>Dinesh Kumar</strong>, a 3rd-year{' '}
+              I&apos;m <strong>DineshKumar</strong>, a 3rd-year{' '}
               <strong>B.Tech Information Technology</strong> student driven by
               curiosity and a love for building things that live on the
               internet. From interactive web apps to machine-learning models,

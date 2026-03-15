@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Dinesh Kumar | Portfolio",
+  title: "Dineshkumar K J | Portfolio",
   description:
-    "Portfolio of Dinesh Kumar — B.Tech IT student, full-stack developer, and ML enthusiast. Explore my projects, skills, and get in touch.",
+    "Portfolio of Dineshkumar K J — B.Tech IT student, full-stack developer, and ML enthusiast. Explore my projects, skills, and get in touch.",
   keywords: [
-    "Dinesh Kumar",
+    "Dineshkumar K J",
     "Portfolio",
     "B.Tech IT",
     "Full Stack Developer",
@@ -18,6 +18,8 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Dinesh Kumar" }],
 };
+
+import SmoothScroll from "@/components/SmoothScroll";
 
 export default function RootLayout({
   children,
@@ -34,7 +36,9 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body suppressHydrationWarning>{children}</body>
+      <body suppressHydrationWarning>
+        <SmoothScroll>{children}</SmoothScroll>
+      </body>
     </html>
   );
 }
