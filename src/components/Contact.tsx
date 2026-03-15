@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 import AnimatedSection from './AnimatedSection';
 import styles from './Contact.module.css';
 
@@ -11,17 +12,73 @@ export default function Contact() {
     message: '',
   });
 
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const formRef = useRef<HTMLFormElement>(null);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Client-side only — no backend
-    alert('Thanks for reaching out! This form is a demo — connect with me on LinkedIn.');
-    setFormData({ name: '', email: '', message: '' });
+    
+    if (status === 'sending') return;
+
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
+    // Check if we should use Demo Mode
+    const isDemoMode = !serviceId || serviceId === 'your_service_id' || 
+                      !templateId || templateId === 'your_template_id' || 
+                      !publicKey || publicKey === 'your_public_key';
+
+    if (isDemoMode) {
+      console.warn('Contact Form: Running in DEMO MODE. No real email will be sent. Add your EmailJS keys to .env.local for production.');
+      setStatus('sending');
+      
+      // Simulate network delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      setStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+      setTimeout(() => setStatus('idle'), 5000);
+      return;
+    }
+
+    setStatus('sending');
+
+    try {
+      // Use the publicKey variable which we validated above
+      if (publicKey) emailjs.init(publicKey);
+
+      const result = await emailjs.send(
+        serviceId || '',
+        templateId || '',
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+          to_name: 'Dinesh',
+          recipient_email: 'kjdinesh26@gmail.com',
+        }
+      );
+
+      console.log('EmailJS Success:', result.status, result.text);
+      setStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+      setTimeout(() => setStatus('idle'), 5000);
+    } catch (error: any) {
+      console.error('EmailJS Error Object:', error);
+      // Detailed logging for common EmailJS error structure
+      if (error?.status) console.error('EmailJS Status:', error.status);
+      if (error?.text) console.error('EmailJS Message:', error.text);
+      
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 5000);
+    }
   };
 
   return (
@@ -133,12 +190,41 @@ export default function Contact() {
                 />
               </div>
 
-              <button type="submit" className="btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
-                <span>Send Message</span>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ position: 'relative', zIndex: 1 }}>
-                  <path d="M2 14l12-6L2 2v4.5l8 1.5-8 1.5V14z" fill="currentColor"/>
-                </svg>
+              <button 
+                type="submit" 
+                className="btn-primary" 
+                style={{ width: '100%', justifyContent: 'center' }}
+                disabled={status === 'sending'}
+              >
+                <span>
+                  {status === 'sending' ? 'Sending...' : 
+                   status === 'success' ? 'Message Sent!' : 
+                   status === 'error' ? 'Error Sending' : 'Send Message'}
+                </span>
+                {status === 'idle' && (
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ position: 'relative', zIndex: 1 }}>
+                    <path d="M2 14l12-6L2 2v4.5l8 1.5-8 1.5V14z" fill="currentColor"/>
+                  </svg>
+                )}
+                {status === 'success' && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ position: 'relative', zIndex: 1 }}>
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                )}
               </button>
+              
+              {status === 'success' && (
+                <p style={{ color: '#10b981', marginTop: '1rem', textAlign: 'center', fontSize: '0.875rem' }}>
+                  {process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID === 'your_service_id' ? 
+                    'Thanks! (Demo Mode: Add real keys to receive mail)' : 
+                    "Thanks for reaching out! I'll get back to you soon."}
+                </p>
+              )}
+              {status === 'error' && (
+                <p style={{ color: '#ef4444', marginTop: '1rem', textAlign: 'center', fontSize: '0.875rem' }}>
+                  Something went wrong. Please try again or connect on LinkedIn.
+                </p>
+              )}
             </form>
           </AnimatedSection>
         </div>

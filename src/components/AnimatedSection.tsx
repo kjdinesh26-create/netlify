@@ -77,6 +77,7 @@ export default function AnimatedSection({
         ease: [0.16, 1, 0.3, 1], // easeOutExpo
       }}
       style={{ 
+        position: 'relative',
         willChange: 'opacity, transform, filter',
         filter: enableScrollBlur ? `blur(${blurValue}px)` : undefined,
         opacity: enableScrollBlur ? opacityValue : undefined
