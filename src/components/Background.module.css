@@ -47,3 +47,15 @@
   pointer-events: none;
   z-index: 1;
 }
+@media (max-width: 768px) {
+  .blob {
+    width: 300px;
+    height: 300px;
+    filter: blur(60px);
+  }
+
+  .techLogo {
+    font-size: 0.7rem;
+    opacity: 0.3 !important;
+  }
+}

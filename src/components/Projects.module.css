@@ -24,6 +24,10 @@
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), var(--glow-cyan);
 }
 
+.card:active {
+  transform: scale(0.98);
+}
+
 .imageContainer {
   position: relative;
   height: 200px;
@@ -132,6 +136,17 @@
 
 .viewMore:hover {
   gap: 12px;
+}
+
+.viewMore:active {
+  opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+  .viewMore {
+    padding: 12px 0; /* Increase tap target area */
+    min-height: 44px;
+  }
 }
 
 /* Coming soon card */

@@ -100,24 +100,31 @@
 }
 
 .mobileMenu {
-  background: rgba(6, 8, 15, 0.95);
-  backdrop-filter: blur(20px);
+  background: rgba(6, 8, 15, 0.9);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
   border-bottom: 1px solid var(--border-glass);
-  padding: 16px 24px 24px;
+  padding: 8px 24px 32px;
   overflow: hidden;
 }
 
 .mobileLink {
   display: block;
-  padding: 12px 0;
-  font-size: 1rem;
+  padding: 14px 0;
+  font-size: 1.1rem;
+  font-weight: 500;
   color: var(--text-secondary);
   border-bottom: 1px solid var(--border-glass);
-  transition: color var(--transition-fast);
+  transition: all var(--transition-fast);
+}
+
+.mobileLink:last-child {
+  border-bottom: none;
 }
 
 .mobileLink:hover {
   color: var(--accent-cyan);
+  padding-left: 4px;
 }
 
 @media (max-width: 768px) {

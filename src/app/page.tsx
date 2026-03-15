@@ -7,12 +7,14 @@ import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import Background from '@/components/Background';
 import AnimatedSection from '@/components/AnimatedSection';
+import BackToTop from '@/components/BackToTop';
 
 export default function Home() {
   return (
     <>
       <Background />
       <Navbar />
+      <BackToTop />
       <main>
         <Hero />
         <AnimatedSection type="fadeLeft">
