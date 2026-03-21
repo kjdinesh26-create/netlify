@@ -288,3 +288,12 @@ button {
     padding: 0 16px;
   }
 }
+/* Mobile Menu Overrides - Hide everything that might overlap except Navbar */
+body.menu-open [class*="Dock"],
+body.menu-open [class*="BackToTop"] {
+  display: none !important;
+}
+
+body.menu-open {
+  overflow: hidden !important;
+}

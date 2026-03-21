@@ -7,7 +7,7 @@ import FuzzyText from './FuzzyText';
 
 const roles = ['Full-Stack Developer', 'ML Enthusiast', 'Problem Solver'];
 
-export default function Hero() {
+const TypingRole = () => {
   const [roleIndex, setRoleIndex] = useState(0);
   const [text, setText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
@@ -37,6 +37,15 @@ export default function Hero() {
     return () => clearTimeout(timeout);
   }, [text, isDeleting, roleIndex]);
 
+  return (
+    <span className={styles.role}>
+      {text}
+      <span className={styles.cursor}>|</span>
+    </span>
+  );
+};
+
+export default function Hero() {
   return (
     <section className={styles.hero} id="hero">
       <div className={`container ${styles.content}`}>
@@ -77,10 +86,7 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.6 }}
             >
               <span className={styles.roleLabel}>I&apos;m a </span>
-              <span className={styles.role}>
-                {text}
-                <span className={styles.cursor}>|</span>
-              </span>
+              <TypingRole />
             </motion.div>
 
             <motion.p
@@ -98,6 +104,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.0 }}
+              style={{ willChange: 'transform, opacity' }}
             >
               <a href="#projects" className="btn-primary">
                 <span>View Projects</span>

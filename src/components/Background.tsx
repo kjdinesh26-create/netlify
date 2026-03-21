@@ -12,7 +12,20 @@ const techLogos = [
   { name: 'TensorFlow', top: '70%', right: '25%' },
 ];
 
+import { useState, useEffect } from 'react';
+
 export default function Background() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const visibleLogos = isMobile ? techLogos.slice(0, 3) : techLogos;
+
   return (
     <div className={styles.wrapper}>
       {/* Static grid */}
@@ -36,13 +49,14 @@ export default function Background() {
             duration: 5 + i,
             repeat: Infinity,
             ease: "easeInOut",
-            delay: i * 0.5
+            delay: i * 0.5,
           }}
           style={{ 
             top: tech.top, 
             left: tech.left, 
             right: tech.right, 
-            bottom: tech.bottom 
+            bottom: tech.bottom,
+            willChange: 'transform, opacity'
           }}
         >
           {tech.name}
@@ -61,34 +75,53 @@ export default function Background() {
           repeat: Infinity,
           ease: "linear"
         }}
-        style={{ top: '10%', left: '10%', background: 'radial-gradient(circle, rgba(0, 229, 255, 0.15), transparent 70%)' }}
+        style={{ 
+          top: '10%', 
+          left: '10%', 
+          background: 'radial-gradient(circle, rgba(0, 229, 255, 0.15), transparent 70%)',
+          willChange: 'transform'
+        }}
       />
-      <motion.div 
-        className={styles.blob} 
-        animate={{
-          x: [0, -150, 80, 0],
-          y: [0, 50, -120, 0],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-        style={{ bottom: '20%', right: '15%', background: 'radial-gradient(circle, rgba(123, 47, 247, 0.15), transparent 70%)' }}
-      />
-      <motion.div 
-        className={styles.blob} 
-        animate={{
-          x: [0, 80, -100, 0],
-          y: [0, 150, -50, 0],
-        }}
-        transition={{
-          duration: 22,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-        style={{ top: '40%', left: '45%', background: 'radial-gradient(circle, rgba(244, 114, 182, 0.1), transparent 70%)' }}
-      />
+      {!isMobile && (
+        <>
+          <motion.div 
+            className={styles.blob} 
+            animate={{
+              x: [0, -150, 80, 0],
+              y: [0, 50, -120, 0],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+            style={{ 
+              bottom: '20%', 
+              right: '15%', 
+              background: 'radial-gradient(circle, rgba(123, 47, 247, 0.15), transparent 70%)',
+              willChange: 'transform'
+            }}
+          />
+          <motion.div 
+            className={styles.blob} 
+            animate={{
+              x: [0, 80, -100, 0],
+              y: [0, 150, -50, 0],
+            }}
+            transition={{
+              duration: 22,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+            style={{ 
+              top: '40%', 
+              left: '45%', 
+              background: 'radial-gradient(circle, rgba(244, 114, 182, 0.1), transparent 70%)',
+              willChange: 'transform'
+            }}
+          />
+        </>
+      )}
     </div>
   );
 }

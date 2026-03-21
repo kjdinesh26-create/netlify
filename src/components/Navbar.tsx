@@ -53,6 +53,31 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.classList.add('menu-open');
+    } else {
+      document.body.classList.remove('menu-open');
+    }
+    return () => document.body.classList.remove('menu-open');
+  }, [mobileOpen]);
+
+  const handleLinkClick = (href: string) => {
+    setMobileOpen(false);
+    if (href === '#') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      const id = href.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        // Small timeout to allow menu animation to start and avoid layout shifts
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  };
+
   return (
     <motion.nav
       className={`${styles.nav} ${scrolled ? styles.scrolled : ''}`}
@@ -109,16 +134,19 @@ export default function Navbar() {
           <motion.div
             className={styles.mobileMenu}
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
+            animate={{ opacity: 1, height: '100vh' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
           >
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 className={styles.mobileLink}
-                onClick={() => setMobileOpen(false)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleLinkClick(link.href);
+                }}
               >
                 <span className={styles.mobileIcon}>{link.icon}</span>
                 {link.label}

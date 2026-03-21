@@ -9,6 +9,7 @@ export interface BentoCardProps {
   title?: string;
   description?: string;
   label?: string;
+  icon?: React.ReactNode;
   textAutoHide?: boolean;
   disableAnimations?: boolean;
 }
@@ -32,42 +33,57 @@ const DEFAULT_SPOTLIGHT_RADIUS = 300;
 const DEFAULT_GLOW_COLOR = '132, 0, 255';
 const MOBILE_BREAKPOINT = 768;
 
+import { 
+  VscLayers, 
+  VscPulse, 
+  VscBeaker, 
+  VscRocket, 
+  VscServer, 
+  VscShield 
+} from 'react-icons/vsc';
+
 const cardData: BentoCardProps[] = [
   {
     color: '#060010',
-    title: 'Analytics',
-    description: 'Track user behavior',
-    label: 'Insights'
+    title: 'Full-Stack mastery',
+    description: 'Developing high-performance, scalable web applications with Next.js and robust backends.',
+    label: 'Architecture',
+    icon: <VscLayers size={24} />
   },
   {
     color: '#060010',
-    title: 'Dashboard',
-    description: 'Centralized data view',
-    label: 'Overview'
+    title: 'Intelligent Systems',
+    description: 'Implementing predictive models and computer vision solutions using TensorFlow and scikit-learn.',
+    label: 'ML & AI',
+    icon: <VscPulse size={24} />
   },
   {
     color: '#060010',
-    title: 'Collaboration',
-    description: 'Work together seamlessly',
-    label: 'Teamwork'
+    title: 'Modern UI/UX',
+    description: 'Crafting immersive, high-fidelity glassmorphic interfaces with fluid, responsive animations using Framer Motion.',
+    label: 'Design',
+    icon: <VscBeaker size={24} />
   },
   {
     color: '#060010',
-    title: 'Automation',
-    description: 'Streamline workflows',
-    label: 'Efficiency'
+    title: 'Algorithm Design',
+    description: 'Solving complex computational challenges with optimized data structures and efficient logic.',
+    label: 'Logic',
+    icon: <VscRocket size={24} />
   },
   {
     color: '#060010',
-    title: 'Integration',
-    description: 'Connect favorite tools',
-    label: 'Connectivity'
+    title: 'Backend Scalability',
+    description: 'Building secure, distributed systems and REST/GraphQL APIs with Node.js and PostgreSQL.',
+    label: 'Backend',
+    icon: <VscServer size={24} />
   },
   {
     color: '#060010',
-    title: 'Security',
-    description: 'Enterprise-grade protection',
-    label: 'Protection'
+    title: 'Secure DevOps',
+    description: 'Ensuring enterprise-grade security and streamlined CI/CD pipelines with Docker and AWS.',
+    label: 'Security',
+    icon: <VscShield size={24} />
   }
 ];
 
@@ -569,6 +585,7 @@ const MagicBento: React.FC<BentoProps> = ({
               >
                 <div className="magic-bento-card__header">
                   <div className="magic-bento-card__label">{card.label}</div>
+                  <div className="magic-bento-card__icon">{card.icon}</div>
                 </div>
                 <div className="magic-bento-card__content">
                   <h2 className="magic-bento-card__title">{card.title}</h2>
@@ -693,6 +710,7 @@ const MagicBento: React.FC<BentoProps> = ({
             >
               <div className="magic-bento-card__header">
                 <div className="magic-bento-card__label">{card.label}</div>
+                <div className="magic-bento-card__icon">{card.icon}</div>
               </div>
               <div className="magic-bento-card__content">
                 <h2 className="magic-bento-card__title">{card.title}</h2>

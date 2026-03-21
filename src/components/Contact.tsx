@@ -30,13 +30,19 @@ export default function Contact() {
     const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
     const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
+    console.log('Contact Form - Config Check:', { 
+      serviceId: serviceId ? 'Found' : 'Missing',
+      templateId: templateId ? 'Found' : 'Missing',
+      publicKey: publicKey ? 'Found' : 'Missing'
+    });
+
     // Check if we should use Demo Mode
     const isDemoMode = !serviceId || serviceId === 'your_service_id' || 
                       !templateId || templateId === 'your_template_id' || 
                       !publicKey || publicKey === 'your_public_key';
 
     if (isDemoMode) {
-      console.warn('Contact Form: Running in DEMO MODE. No real email will be sent. Add your EmailJS keys to .env.local for production.');
+      console.warn('Contact Form: Running in DEMO MODE. No real email will be sent.');
       setStatus('sending');
       
       // Simulate network delay
@@ -51,8 +57,17 @@ export default function Contact() {
     setStatus('sending');
 
     try {
-      // Use the publicKey variable which we validated above
-      if (publicKey) emailjs.init(publicKey);
+      if (publicKey) {
+        console.log('Initializing EmailJS with Public Key...');
+        emailjs.init(publicKey);
+      }
+
+      console.log('Sending Email with template params:', {
+        from_name: formData.name,
+        from_email: formData.email,
+        to_name: 'Dinesh',
+        recipient_email: 'kjdinesh26@gmail.com'
+      });
 
       const result = await emailjs.send(
         serviceId || '',
@@ -66,15 +81,15 @@ export default function Contact() {
         }
       );
 
-      console.log('EmailJS Success:', result.status, result.text);
+      console.log('EmailJS Success Response:', result);
       setStatus('success');
       setFormData({ name: '', email: '', message: '' });
       setTimeout(() => setStatus('idle'), 5000);
     } catch (error: any) {
-      console.error('EmailJS Error Object:', error);
-      // Detailed logging for common EmailJS error structure
-      if (error?.status) console.error('EmailJS Status:', error.status);
-      if (error?.text) console.error('EmailJS Message:', error.text);
+      console.error('EmailJS Error caught in handleSubmit:', error);
+      
+      if (error?.status) console.error('Error Status:', error.status);
+      if (error?.text) console.error('Error Message:', error.text);
       
       setStatus('error');
       setTimeout(() => setStatus('idle'), 5000);
@@ -125,7 +140,7 @@ export default function Contact() {
               </a>
 
               <a
-                href="mailto:dinesh@example.com"
+                href="mailto:kjdinesh26@gmail.com"
                 className={styles.socialLink}
               >
                 <svg className={styles.socialIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -134,7 +149,7 @@ export default function Contact() {
                 </svg>
                 <div>
                   <span className={styles.socialName}>Email</span>
-                  <span className={styles.socialHandle}>Get in touch</span>
+                  <span className={styles.socialHandle}>kjdinesh26@gmail.com</span>
                 </div>
               </a>
             </div>

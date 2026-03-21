@@ -66,9 +66,9 @@ const Pattern = () => {
   return (
     <PatternWrapper>
       <div className="matrix-container">
-        {[...Array(5)].map((_, i) => (
+        {[...Array(2)].map((_, i) => (
           <div className="matrix-pattern" key={i}>
-            {[...Array(40)].map((_, j) => (
+            {[...Array(20)].map((_, j) => (
               <div className="matrix-column" key={j} />
             ))}
           </div>

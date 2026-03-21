@@ -43,21 +43,13 @@ const FuzzyText: React.FC<FuzzyTextProps> = ({
     >
       <svg style={{ position: 'absolute', width: 0, height: 0 }}>
         <defs>
-          <filter id={filterId} x="-20%" y="-20%" width="140%" height="140%">
+          <filter id={filterId} x="-10%" y="-10%" width="120%" height="120%">
             <feTurbulence
               type="fractalNoise"
               baseFrequency={baseFrequency}
-              numOctaves={numOctaves}
+              numOctaves={isHovered ? numOctaves : 1}
               result="noise"
-            >
-              <animate
-                attributeName="seed"
-                from="0"
-                to="100"
-                dur="10s"
-                repeatCount="indefinite"
-              />
-            </feTurbulence>
+            />
             <feDisplacementMap
               in="SourceGraphic"
               in2="noise"
@@ -76,7 +68,8 @@ const FuzzyText: React.FC<FuzzyTextProps> = ({
           filter: `url(#${filterId})`,
           lineHeight: 1,
           letterSpacing: '-0.02em',
-          textShadow: '0 0 10px rgba(255, 255, 255, 0.2)',
+          textShadow: '0 0 10px rgba(255, 255, 255, 0.1)',
+          willChange: 'filter, transform',
         }}
         animate={{
           scale: isHovered ? 1.05 : 1,

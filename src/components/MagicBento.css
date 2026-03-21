@@ -30,6 +30,19 @@
 
 .magic-bento-card__header {
   margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.magic-bento-card__icon {
+  color: rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+.magic-bento-card:hover .magic-bento-card__icon {
+  color: rgb(var(--glow-color));
+  transform: scale(1.1) rotate(5deg);
 }
 
 .magic-bento-card__label {

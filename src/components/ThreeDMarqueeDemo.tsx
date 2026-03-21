@@ -2,7 +2,18 @@
 import { ThreeDMarquee } from "@/components/ui/3d-marquee";
 import React from "react";
 
+import { useState, useEffect } from "react";
+
 export default function ThreeDMarqueeDemo() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const images = [
     "https://assets.aceternity.com/cloudinary_bkp/3d-card.png",
     "https://assets.aceternity.com/animated-modal.png",
@@ -36,6 +47,8 @@ export default function ThreeDMarqueeDemo() {
     "https://assets.aceternity.com/wobble-card.png",
     "https://assets.aceternity.com/world-map.webp",
   ];
+  if (isMobile) return null;
+
   return (
     <div className="mx-auto my-10 max-w-7xl rounded-3xl bg-gray-950/5 p-2 ring-1 ring-neutral-700/10 dark:bg-neutral-800">
       <ThreeDMarquee images={images} />

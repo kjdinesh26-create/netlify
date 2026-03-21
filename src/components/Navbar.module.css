@@ -3,12 +3,15 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
-  height: var(--nav-height);
+  z-index: 2000;
+  min-height: var(--nav-height);
   display: flex;
   flex-direction: column;
   justify-content: center;
   transition: all var(--transition-smooth);
+  width: 100%;
+  background: transparent;
+  backdrop-filter: blur(0px);
 }
 
 .scrolled {
@@ -22,6 +25,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: var(--nav-height);
+  width: 100%;
 }
 
 .logo {
@@ -125,12 +130,21 @@
 }
 
 .mobileMenu {
-  background: rgba(6, 8, 15, 0.9);
+  background: #06080f; /* Fully opaque */
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
   border-bottom: 1px solid var(--border-glass);
-  padding: 8px 24px 32px;
-  overflow: hidden;
+  padding: 32px 24px;
+  overflow-y: auto; /* Enable scrolling within the menu if needed */
+  position: absolute;
+  top: var(--nav-height);
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .mobileLink {
