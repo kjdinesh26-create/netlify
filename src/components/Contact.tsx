@@ -157,16 +157,6 @@ export default function Contact() {
 
           <AnimatedSection delay={0.2} className={styles.formCol}>
             <form className={styles.form} onSubmit={handleSubmit}>
-              {(!process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID === 'service_2jt46ca') && (
-                <div className={styles.demoBadge}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <circle cx="12" cy="12" r="10" />
-                    <line x1="12" y1="8" x2="12" y2="12" />
-                    <line x1="12" y1="16" x2="12.01" y2="16" />
-                  </svg>
-                  <span>Demo Mode (Real emails disabled)</span>
-                </div>
-              )}
               <div className={styles.formGroup}>
                 <label htmlFor="name" className={styles.label}>
                   Name
@@ -240,14 +230,12 @@ export default function Contact() {
               
               {status === 'success' && (
                 <p className={styles.statusSuccess}>
-                  {(!process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID === 'service_2jt46ca') ? 
-                    'Thanks! (Demo Mode: Add real keys to receive mail)' : 
-                    "Thanks for reaching out! I'll get back to you soon."}
+                  Thanks for reaching out! I&apos;ll get back to you soon.
                 </p>
               )}
               {status === 'error' && (
                 <p className={styles.statusError}>
-                  Something went wrong. Please try again or connect on LinkedIn.
+                  Something went wrong. Please try again or email me directly at kjdinesh26@gmail.com
                 </p>
               )}
             </form>

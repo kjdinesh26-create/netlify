@@ -155,20 +155,6 @@
   }
 }
 
-.demoBadge {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  background: rgba(255, 183, 77, 0.08);
-  border: 1px solid rgba(255, 183, 77, 0.2);
-  border-radius: var(--radius-sm);
-  color: #ffb74d;
-  font-size: 0.8rem;
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
 .statusSuccess {
   color: #10b981;
   font-size: 0.875rem;
